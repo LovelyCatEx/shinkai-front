@@ -1,0 +1,28 @@
+@import 'base.css';
+@import "reset.scss";
+
+:root {
+  --primary-color: #3a9fff;
+  --secondary-color: rgb(224,240,253);
+
+  --transition-duration-slow: .5s;
+  --transition-duration-default: .25s;
+
+  --margin-giant: 24px;
+  --margin-large: 20px;
+  --margin-normal: 16px;
+  --margin-lite: 12px;
+  --margin-tiny: 8px;
+
+  --padding-giant: 32px;
+  --padding-large: 24px;
+  --padding-normal: 16px;
+  --padding-lite: 12px;
+  --padding-tiny: 8px;
+
+  --radius-giant: 16px;
+  --radius-large: 12px;
+  --radius-normal: 8px;
+  --radius-lite: 6px;
+  --radius-tiny: 4px;
+}
