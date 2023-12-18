@@ -1,7 +1,9 @@
 <script setup lang="ts">
 
+import {ref} from "vue";
+
 const props = defineProps<{
-  absolutePos: boolean
+  transparent: boolean
 }>()
 
 interface NavHeaderMenu {
@@ -20,7 +22,7 @@ const menus: Array<NavHeaderMenu> = [
   },
   {
     title: '影视作品',
-    uri: 'creations',
+    uri: '/creations',
     blank: false,
     children: []
   },
@@ -32,18 +34,38 @@ const menus: Array<NavHeaderMenu> = [
   }
 ];
 
+const absolutePos = ref(true)
+
+const currentIndex = ref(0)
+const currentDividerIndex = ref(0)
+
+// Index Refresh
+for(let i = 0; i < menus.length; i++) {
+  const navItem = menus[i]
+  console.log(window.location.pathname)
+  if (navItem.uri === window.location.pathname) {
+    currentIndex.value = i
+    currentDividerIndex.value = i
+    if (currentIndex.value !== 0) {
+      absolutePos.value = false
+    }
+  }
+}
 </script>
 
 <template>
-  <div class="lo-uni-header-wrapper" :style="'position: ' + (absolutePos ? 'absolute' : 'static')">
+  <div
+      :class="{'lo-uni-header-wrapper': true, 'white': absolutePos, 'black-background-5': !transparent && absolutePos, 'back-blur-16': !transparent}"
+      :style="'position: ' + (absolutePos ? 'absolute' : 'static')">
     <div class="lo-uni-header">
+      <div class="indicator" :style="'transform: translateX(' + (22 + ((currentDividerIndex + 1) * 88))  + 'px)'"></div>
       <ul class="lo-uni-header__menu">
         <li>
           <a>
             Logo
           </a>
         </li>
-        <li v-for="(menu, index) in menus">
+        <li v-for="(menu, index) in menus" @mouseover="currentDividerIndex = index" @mouseleave="currentDividerIndex = currentIndex">
           <a :href="menu.uri" :target="menu.blank ? '_blank' : '_self'">{{ menu.title }}</a>
           <ul class="lo-uni-header__menu--sub" v-if="menu.children.length != 0">
             <li v-for="(sub, k) in menu.children!">
@@ -57,13 +79,29 @@ const menus: Array<NavHeaderMenu> = [
 </template>
 
 <style scoped lang="scss">
+.white {
+  color: white;
+}
+
+.black {
+  color: black;
+}
+
+.black-background-5 {
+  background-color: rgba(0,0,0,.5);
+}
+
+.back-blur-16 {
+  backdrop-filter: blur(16px);
+}
+
 $nav-height: 64px;
 
 @include b("uni-header-wrapper") {
   width: 100vw;
   height: $nav-height;
   z-index: 999;
-  color: white;
+  box-shadow: 0 0 8px rgba(0,0,0,.5), 0 0 4px rgba(0,0,0,.6);
 }
 
 @include b("uni-header") {
@@ -71,14 +109,24 @@ $nav-height: 64px;
   height: 100%;
   padding: 0 var(--padding-giant);
 
+  $nav-item-width: 88px;
+  .indicator {
+    width: calc($nav-item-width / 2);
+    height: 5px;
+    background: rgb(105, 224, 255);
+    transition-duration: var(--transition-duration-default);
+    position: absolute;
+  }
+
   @include e("menu") {
     height: $nav-height;
     display: flex;
     align-items: center;
-    font-size: .9rem;
-
+    font-size: 16px;
 
     li {
+      width: $nav-item-width;
+      text-align: center;
       display: inline-block;
       position: relative;
       padding: var(--padding-tiny) var(--padding-normal);

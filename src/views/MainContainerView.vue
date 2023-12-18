@@ -7,7 +7,7 @@ import NavHeader from "@/components/NavHeader.vue";
 
 <template>
   <div class="lo-container">
-    <NavHeader :absolute-pos="true" />
+    <NavHeader :transparent="false"/>
     <RouterView />
   </div>
 </template>

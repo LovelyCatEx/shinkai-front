@@ -5,6 +5,8 @@
   --primary-color: #3a9fff;
   --secondary-color: rgb(224,240,253);
 
+  --shadow-normal: rgba(0,0,0,.5);
+
   --transition-duration-slow: .5s;
   --transition-duration-default: .25s;
 
@@ -25,4 +27,16 @@
   --radius-normal: 8px;
   --radius-lite: 6px;
   --radius-tiny: 4px;
+}
+
+@media screen and (max-width: 767px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 14px;
+  }
 }
