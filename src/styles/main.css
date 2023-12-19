@@ -3,7 +3,9 @@
 
 :root {
   --primary-color: #3a9fff;
+  --primary-light-color: #59aeff;
   --secondary-color: rgb(224,240,253);
+  --primary-text-color: white;
 
   --shadow-normal: rgba(0,0,0,.5);
 
@@ -27,6 +29,10 @@
   --radius-normal: 8px;
   --radius-lite: 6px;
   --radius-tiny: 4px;
+}
+
+html, body {
+  background: var(--secondary-color);
 }
 
 @media screen and (max-width: 767px) {
