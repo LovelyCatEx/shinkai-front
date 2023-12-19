@@ -140,8 +140,9 @@ function handleTouchMove(e) {
         <slot :name="'slot' + index" />
       </div>
     </div>
-    <ul class="aside" :style="{ display: componentData.showAside ? (componentData.isMobile ? 'none' :'block') : 'none', transform: `translateX(${$index === 0 ? 300 : 0}%) translateY(-50%)` }">
-      <li v-for="(item, index) in componentData.asideData" @click="changeBac(index)">
+    <ul class="lo-aside-guide" :style="{ display: componentData.showAside ? (componentData.isMobile ? 'none' :'block') : 'none', transform: `translateX(${$index === 0 ? 300 : 0}%) translateY(-50%)` }">
+      <div class="lo-aside-guide__line"></div>
+      <li v-for="(item, index) in componentData.asideData" @click="changeBac(index)" :class="{ 'lo-aside-guide__item--active': index === $index }" class="lo-aside-guide__item">
         <span :class="{ active: index === $index }"></span>
         <div :class="{'show-dec--active': index === $index}" class="show-dec">{{ item }}</div>
       </li>
@@ -156,8 +157,8 @@ function handleTouchMove(e) {
 
 .active {
   display: inline-block;
-  width: 12px !important;
-  height: 12px !important;
+  width: 6px !important;
+  height: 6px !important;
 }
 
 .outer-box {
@@ -177,7 +178,9 @@ function handleTouchMove(e) {
     }
   }
 
-  .aside {
+  @include b("aside-guide") {
+    $margin-li: 28px;
+
     transition: all ease-in-out .5s;
     list-style: none;
     position: fixed;
@@ -185,11 +188,21 @@ function handleTouchMove(e) {
     top: 50%;
     transform: translateY(-50%);
 
-    li {
+    @include e("line") {
+      $width: 2px;
+      width: $width;
+      height: 256px;
+      background: rgba(255,255,255,.2);
+      position: absolute;
+      transform: translateY(-48px);
+      right: calc($margin-li + $width);
+    }
+
+    @include e("item") {
       cursor: pointer;
-      height: 14px;
-      width: 14px;
-      margin: 28px;
+      height: 6px;
+      width: 6px;
+      margin: $margin-li;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -214,19 +227,33 @@ function handleTouchMove(e) {
       }
 
       span {
-        border-radius: 100%;
-        border: #fff solid 1px;
-        width: 4px;
-        height: 4px;
+        width: 6px;
+        height: 6px;
+        transform: rotate(45deg);
         display: inline-block;
         background-color: #fff;
         transition: all ease-in-out 0.2s;
       }
+
       &:hover span {
-        width: 10px;
-        height: 10px;
+        width: 6px;
+        height: 6px;
         background-color: #fff;
         cursor: pointer;
+      }
+
+      @include m("active") {
+        &::before {
+          content: '';
+          position: absolute;
+          display: block;
+          width: 18px;
+          height: 18px;
+          background: rgba(0,0,0,.25);
+          transform: rotate(45deg);
+          border: 1px solid white;
+          animation: fade-in var(--transition-duration-default) linear;
+        }
       }
     }
   }
