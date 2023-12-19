@@ -74,7 +74,7 @@ let fullBlockScrollData = {
             <img class="lo-banner-main__icon" src="../assets/suzume/icon/nimizu.png" alt="" />
             <h1 class="lo-banner-main__title--in-divider">蚓厄</h1>
             <p class="lo-banner-main__description">
-              古代日本人认为日本群岛地下有长长的、巨大的生物运动，引发了地震。到300年前的江户时代，人们都认为那是一条鲶鱼
+              古代日本人认为日本群岛地下有长长的、巨大的生物运动，引发了地震。到300年前的江户时代，人们都认为那是一条鲶鱼。
             </p>
             <button class="lo-banner-main__btn-details">
               <p>查看详情</p>

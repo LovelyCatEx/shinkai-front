@@ -42,13 +42,9 @@ const currentDividerIndex = ref(0)
 // Index Refresh
 for(let i = 0; i < menus.length; i++) {
   const navItem = menus[i]
-  console.log(window.location.pathname)
   if (navItem.uri === window.location.pathname) {
     currentIndex.value = i
     currentDividerIndex.value = i
-    if (currentIndex.value !== 0) {
-      absolutePos.value = false
-    }
   }
 }
 </script>
@@ -98,7 +94,7 @@ for(let i = 0; i < menus.length; i++) {
 $nav-height: 64px;
 
 @include b("uni-header-wrapper") {
-  width: 100vw;
+  width: 100%;
   height: $nav-height;
   z-index: 999;
   box-shadow: 0 0 8px rgba(0,0,0,.5), 0 0 4px rgba(0,0,0,.6);

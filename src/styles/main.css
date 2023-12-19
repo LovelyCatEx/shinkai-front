@@ -4,7 +4,8 @@
 :root {
   --primary-color: #3a9fff;
   --primary-light-color: #59aeff;
-  --secondary-color: rgb(224,240,253);
+  --secondary-color: #e0f0fd;
+  --secondary-light-color: #edf7fe;
   --primary-text-color: white;
 
   --shadow-normal: rgba(0,0,0,.5);
