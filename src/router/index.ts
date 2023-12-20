@@ -4,6 +4,7 @@ import MainContainerView from "@/views/MainContainerView.vue";
 import PageNotFound from "@/views/PageNotFound.vue";
 import GalleryView from "@/views/GalleryView.vue";
 import CreationsView from "@/views/CreationsView.vue";
+import CreationDetailsView from "@/views/CreationDetailsView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,7 +17,8 @@ const router = createRouter({
       children: [
         { path: '', name: 'main-home', component: HomeView },
         { path: 'creations', name: 'main-creations', component: CreationsView },
-        { path: 'gallery', name: 'main-gallery', component: GalleryView }
+        { path: 'gallery', name: 'main-gallery', component: GalleryView },
+        { path: 'creation/:id', name: 'main-creation-details', component: CreationDetailsView }
       ]
     }
   ]

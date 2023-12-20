@@ -189,13 +189,13 @@ function handleTouchMove(e) {
 
   @include b("aside-guide") {
     $margin-li: 28px;
-
     transition: all ease-in-out .5s;
     list-style: none;
     position: fixed;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
+    transition-duration: var(--transition-duration-default);
 
     @include e("line") {
       $width: 2px;
@@ -265,6 +265,14 @@ function handleTouchMove(e) {
         }
       }
     }
+  }
+}
+</style>
+
+<style scoped lang="scss">
+@media screen and (max-width: 1024px) {
+  @include b("aside-guide") {
+    opacity: 0!important;
   }
 }
 </style>

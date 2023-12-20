@@ -15,7 +15,6 @@ export class BaseService {
     protected doGet<T>(url: string, headers: object, params: object, callback: RequestCallback<Result<T>>) {
         console.log("[GET]" + url)
         internalGet<T>(this.getUrl(url), headers, params, (res) => {
-            console.log(res)
                 if (res.code === 200) {
                     callback.onSuccess(res.message, res)
                 } else {
@@ -31,7 +30,6 @@ export class BaseService {
     protected doPost<T>(url: string, headers: object, params: object, callback: RequestCallback<Result<T>>) {
         console.log("[POST]" + url)
         internalPost<T>(this.getUrl(url), headers, params, (res) => {
-            console.log(res)
             if (res.code === 200) {
                 callback.onSuccess(res.message, res)
             } else {

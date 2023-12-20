@@ -12,4 +12,8 @@ export class CreationService extends BaseService {
     public getAllCreations(callback: RequestCallback<Result<Array<Creation>>>) {
         this.doGet("/all", {}, {}, callback)
     }
+
+    public getCreation(id: number, callback: RequestCallback<Result<Creation>>) {
+        this.doGet("/details", {}, {id: id}, callback)
+    }
 }

@@ -6,22 +6,11 @@ import {computed, Ref, ref} from "vue";
 import SiteFooter from "@/components/SiteFooter.vue";
 import store from "@/store";
 import {storeToRefs} from "pinia";
+import router from "@/router";
 
 const service = new CreationService()
 
 const creations: Ref<Array<Creation>> = ref([])
-
-const currentBannerIndex = ref(0)
-function adjustBannerIndex(isForward: boolean) {
-  let newIndex = currentBannerIndex.value + (isForward ? 1 : -1)
-  if (newIndex < 0) {
-    newIndex = creations.value.length - 1
-  }
-  if (newIndex > creations.value.length - 1) {
-    newIndex = 0
-  }
-  currentBannerIndex.value = newIndex
-}
 
 function refreshData() {
   service.getAllCreations({
@@ -34,9 +23,30 @@ function refreshData() {
 refreshData()
 
 // Banner
-const computedBannerStyle = computed(() => {
-  return 'width: ' + (creations.value.length * 100) + '%; transform: translateX(-' + (100 / creations.value.length * currentBannerIndex.value) + '%)'
+const maxBannerDisplayCount = ref(3)
+
+const currentBannerIndex = ref(0)
+function adjustBannerIndex(isForward: boolean) {
+  let newIndex = currentBannerIndex.value + (isForward ? 1 : -1)
+  if (newIndex < 0) {
+    newIndex = maxBannerDisplayCount.value - 1
+  }
+  if (newIndex > maxBannerDisplayCount.value - 1) {
+    newIndex = 0
+  }
+  currentBannerIndex.value = newIndex
+}
+
+const computedBannerData = computed(() => {
+  return creations.value.slice(0, 3)
 })
+
+const computedBannerStyle = computed(() => {
+  return 'width: ' + (maxBannerDisplayCount.value * 100) + '%; transform: translateX(-' + (100 / maxBannerDisplayCount.value * currentBannerIndex.value) + '%)'
+})
+
+setInterval(() => adjustBannerIndex(true), 3000)
+
 
 // Header
 const { isBackgroundBlur, isBackground } = storeToRefs(store.navHeaderStore)
@@ -73,7 +83,7 @@ window.onscroll = () => {
       </div>
 
       <div class="lo-creation-banner" :style="computedBannerStyle">
-        <div class="lo-creation-banner__item" v-for="(item, index) in creations" :style="'background: url(' + item.feature + ') center no-repeat; background-size: cover;'"></div>
+        <div class="lo-creation-banner__item" v-for="(item, index) in computedBannerData" :style="'background: url(' + item.feature + ') center no-repeat; background-size: cover;'"></div>
       </div>
     </div>
 
@@ -82,7 +92,7 @@ window.onscroll = () => {
     </div>
 
     <div class="lo-creation-view">
-      <div class="lo-creation-card" v-for="(creation, index) in creations">
+      <div class="lo-creation-card" v-for="(creation, index) in creations" @click="router.push('/creation/' + creation.id)">
         <header class="lo-creation-card__header">
           <img class="lo-creation-card__feature" :src="creation.feature" :alt="creation.name" />
         </header>
@@ -207,7 +217,7 @@ window.onscroll = () => {
     justify-content: inherit;
     align-items: inherit;
 
-    $gradient-from: #00000030;
+    $gradient-from: #00000040;
     @include m("left") {
       background: linear-gradient(to right, $gradient-from, #00000000);
     }
