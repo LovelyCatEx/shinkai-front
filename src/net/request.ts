@@ -31,7 +31,7 @@ export function internalGet<T>(url: string, headers: object, params: object,
         } else {
             failureFx(data, code, url, message)
         }
-    }).catch((err: any) => errorFx(err))
+    }).catch((err: any) => handleError(err, errorFx))
 }
 
 export function internalPost<T>(url: string, headers: object, data: object,
@@ -56,5 +56,10 @@ export function internalPost<T>(url: string, headers: object, data: object,
         } else {
             failureFx(data, code, url, message)
         }
-    }).catch((err: any) => errorFx(err))
+    }).catch((err: any) => handleError(err, errorFx))
+}
+
+const handleError = (err: any, fx: (err: any) => void) => {
+    fx(err)
+    console.log("%cRemote server is not responding", 'color: white; background: #ff80ab; padding: 8px 16px; font-size: 1.05rem; border-radius: 8px')
 }

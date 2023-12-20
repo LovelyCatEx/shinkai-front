@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect, getCurrentInstance } from "vue";
+import {computed, ref, watchEffect, getCurrentInstance, Directive, watch} from "vue";
 // Hide Scroll Bar
 
 document.getElementsByTagName("body")[0].style.overflow = "hidden";
@@ -14,8 +14,10 @@ export interface FullBlockScrollData {
 
 const props = defineProps<{
   name: string,
-  componentData: FullBlockScrollData
+  componentData: FullBlockScrollData,
 }>()
+
+const emits = defineEmits(['scroll-event'])
 
 // ELEMENT
 const element = ref('element')
@@ -60,6 +62,12 @@ function goScroll(e) {
 
 // Record the current index of block
 const $index = ref(0)
+
+watch($index, () => {
+  emits('scroll-event', $index.value)
+})
+emits('scroll-event', $index.value)
+
 function next() {
   if ($index.value < props.componentData.backgroundImages.length - 1) {
     $index.value++
@@ -119,6 +127,7 @@ function handleTouchMove(e) {
 }
 
 //#endregion
+
 </script>
 
 <template>

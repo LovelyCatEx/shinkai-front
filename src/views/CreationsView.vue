@@ -4,6 +4,8 @@ import type {Result} from "@/net/result";
 import type {Creation} from "@/net/object/server-vo";
 import {computed, Ref, ref} from "vue";
 import SiteFooter from "@/components/SiteFooter.vue";
+import store from "@/store";
+import {storeToRefs} from "pinia";
 
 const service = new CreationService()
 
@@ -19,7 +21,6 @@ function adjustBannerIndex(isForward: boolean) {
     newIndex = 0
   }
   currentBannerIndex.value = newIndex
-  console.log(currentBannerIndex.value)
 }
 
 function refreshData() {
@@ -36,6 +37,20 @@ refreshData()
 const computedBannerStyle = computed(() => {
   return 'width: ' + (creations.value.length * 100) + '%; transform: translateX(-' + (100 / creations.value.length * currentBannerIndex.value) + '%)'
 })
+
+// Header
+const { isBackgroundBlur, isBackground } = storeToRefs(store.navHeaderStore)
+isBackgroundBlur.value = false
+isBackground.value = false
+
+window.onscroll = () => {
+  let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+  let screenHeight = document.documentElement.clientHeight || document.body.clientHeight
+  let fullHeight = document.getElementsByClassName("lo-creation-container")[0].clientHeight
+  const percentage = scrollTop / (fullHeight - screenHeight)
+  isBackgroundBlur.value = percentage > 0.4
+  isBackground.value = percentage > 0.4
+}
 </script>
 
 <template>

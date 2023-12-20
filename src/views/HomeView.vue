@@ -1,8 +1,13 @@
 <script setup lang="ts">
 
 import VerticalScrollBanner from "@/components/VerticalScrollBanner.vue";
+import store from "@/store";
+import {storeToRefs} from "pinia";
+import {ref} from "vue";
 
-let fullBlockScrollData = {
+const {isBackground, isBackgroundBlur} = storeToRefs(store.navHeaderStore)
+
+let scrollData = {
   backgroundImages: [
       '/src/assets/suzume/suzume-feature.jpg',
       '/src/assets/suzume/suzume-kanameishi.png',
@@ -14,11 +19,16 @@ let fullBlockScrollData = {
   isMobile: false
 };
 
+const scrollEvent = (newIndex) => {
+  isBackground.value = newIndex != 0
+  isBackgroundBlur.value = newIndex != 0
+}
+
 </script>
 
 <template>
   <main class="lo-home-container">
-    <VerticalScrollBanner name="abc" :component-data="fullBlockScrollData">
+    <VerticalScrollBanner name="abc" :component-data="scrollData" @scroll-event="scrollEvent">
       <template v-slot:slot0>
         <section class="lo-banner-wrapper">
           <div class="lo-banner-main">

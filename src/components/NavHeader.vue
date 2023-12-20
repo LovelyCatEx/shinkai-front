@@ -1,10 +1,15 @@
 <script setup lang="ts">
 
 import {ref} from "vue";
+import store from "@/store";
+import {storeToRefs} from "pinia";
 
 const props = defineProps<{
-  transparent: boolean
+
 }>()
+
+// Store
+const { isBackground, isBackgroundBlur } = storeToRefs(store.navHeaderStore)
 
 interface NavHeaderMenu {
   title: string,
@@ -51,8 +56,8 @@ for(let i = 0; i < menus.length; i++) {
 
 <template>
   <div
-      :class="{'lo-uni-header-wrapper': true, 'white': absolutePos, 'black-background-5': !transparent && absolutePos, 'back-blur-16': !transparent}"
-      :style="'position: ' + (absolutePos ? 'absolute' : 'static')">
+      :class="{'lo-uni-header-wrapper': true, 'white': absolutePos, 'black-background-5': isBackground && absolutePos, 'back-blur-16': isBackgroundBlur}"
+      :style="'position: ' + (absolutePos ? 'fixed' : 'static')">
     <div class="lo-uni-header">
       <div class="indicator" :style="'transform: translateX(' + (22 + ((currentDividerIndex + 1) * 88))  + 'px)'"></div>
       <ul class="lo-uni-header__menu">
@@ -85,6 +90,7 @@ for(let i = 0; i < menus.length; i++) {
 
 .black-background-5 {
   background-color: rgba(0,0,0,.5);
+  box-shadow: 0 0 8px rgba(0,0,0,.5), 0 0 4px rgba(0,0,0,.6);
 }
 
 .back-blur-16 {
@@ -97,7 +103,7 @@ $nav-height: 64px;
   width: 100%;
   height: $nav-height;
   z-index: 999;
-  box-shadow: 0 0 8px rgba(0,0,0,.5), 0 0 4px rgba(0,0,0,.6);
+  transition-duration: var(--transition-duration-slow);
 }
 
 @include b("uni-header") {
