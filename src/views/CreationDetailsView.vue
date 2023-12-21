@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {getCurrentInstance, Ref, ref} from "vue";
+import {getCurrentInstance, Ref, ref, watchEffect} from "vue";
 import {CreationService} from "@/net/service/creation-service";
 import type {Result} from "@/net/result";
 import type {Creation, CreationCharacter} from "@/net/object/server-vo";
 import router from "@/router";
 import SiteFooter from "@/components/SiteFooter.vue";
+import {setTitle} from "@/js/universal-utils";
 
 const service = new CreationService()
 
@@ -34,6 +35,10 @@ refreshData()
 // Scroll to top
 scrollTo(0,0)
 
+// Title
+watchEffect(() => {
+  setTitle(creation.value.name)
+})
 </script>
 
 <template>

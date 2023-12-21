@@ -7,6 +7,7 @@ import SiteFooter from "@/components/SiteFooter.vue";
 import store from "@/store";
 import {storeToRefs} from "pinia";
 import router from "@/router";
+import {setTitle} from "@/js/universal-utils";
 
 const service = new CreationService()
 
@@ -61,6 +62,9 @@ window.onscroll = () => {
   isBackgroundBlur.value = percentage > 0.4
   isBackground.value = percentage > 0.4
 }
+
+// Title
+setTitle("影视作品")
 </script>
 
 <template>

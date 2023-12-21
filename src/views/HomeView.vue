@@ -4,6 +4,7 @@ import VerticalScrollBanner from "@/components/VerticalScrollBanner.vue";
 import store from "@/store";
 import {storeToRefs} from "pinia";
 import {ref} from "vue";
+import {setTitle} from "@/js/universal-utils";
 
 const {isBackground, isBackgroundBlur} = storeToRefs(store.navHeaderStore)
 
@@ -24,6 +25,8 @@ const scrollEvent = (newIndex) => {
   isBackgroundBlur.value = newIndex != 0
 }
 
+// Title
+setTitle("")
 </script>
 
 <template>
