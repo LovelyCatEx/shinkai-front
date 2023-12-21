@@ -40,9 +40,6 @@ scrollTo(0,0)
   <div class="lo-details-container">
     <div class="lo-details-banner-container">
       <div class="lo-details-banner-container__background" :style="'background: url(' + creation.feature + ') center no-repeat; background-size: cover;'"></div>
-      <div class="lo-details-banner-container__btn-back" @click="router.back()">
-        <svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7072" width="200" height="200"><path d="M872.4 556.6s-0.1 0 0 0l-719.9-0.6c-24.6 0-44.6-20-44.6-44.7 0-24.6 20-44.6 44.6-44.6l719.8 0.7c24.6 0 44.6 20 44.6 44.7 0.1 24.6-19.9 44.5-44.5 44.5z" fill="#ffffff" p-id="7073"></path><path d="M456.8 924.1c-11.4 0-22.8-4.4-31.5-13.1L167.7 653.5c-78.4-78.4-78.4-205.9 0-284.3l257.5-257.5c17.4-17.4 45.7-17.4 63.1 0s17.4 45.7 0 63.1L230.8 432.3c-43.6 43.6-43.6 114.5 0 158.1l257.5 257.5c17.4 17.4 17.4 45.7 0 63.1-8.6 8.7-20.1 13.1-31.5 13.1z" fill="#ffffff" p-id="7074"></path></svg>
-      </div>
       <div class="lo-details-banner">
         <div class="lo-details-banner__feature">
           <img :src="creation.featureVertical" :alt="creation.name" />
@@ -181,26 +178,6 @@ scrollTo(0,0)
     height: 100vh;
     transform: scale(1.25);
     filter: blur(64px);
-  }
-
-  @include e("btn-back") {
-    $width: 3rem;
-    width: $width;
-    height: $width;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: calc($width / 2);
-    position: absolute;
-    top: calc(64px + var(--margin-large));
-    left: var(--margin-large);
-    background: rgba(0,0,0,.5);
-    cursor: pointer;
-
-    svg {
-      width: calc($width / 2);
-      height: calc($width / 2);
-    }
   }
 }
 

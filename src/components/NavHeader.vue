@@ -1,8 +1,9 @@
 <script setup lang="ts">
 
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import store from "@/store";
 import {storeToRefs} from "pinia";
+import router from "@/router";
 
 const props = defineProps<{
 
@@ -39,6 +40,10 @@ const menus: Array<NavHeaderMenu> = [
   }
 ];
 
+const headerMenu = ref()
+const indicator = ref()
+const menuLogo = ref()
+
 const absolutePos = ref(true)
 
 const currentIndex = ref(0)
@@ -52,6 +57,11 @@ for(let i = 0; i < menus.length; i++) {
     currentDividerIndex.value = i
   }
 }
+
+// Indicator
+const computedIndicatorOffsetX = computed(() => {
+  return menuLogo.value?.clientWidth + headerMenu.value?.getElementsByTagName("li")[currentDividerIndex.value].clientWidth * currentDividerIndex.value + (indicator.value?.clientWidth / 2)
+})
 </script>
 
 <template>
@@ -59,13 +69,11 @@ for(let i = 0; i < menus.length; i++) {
       :class="{'lo-uni-header-wrapper': true, 'white': absolutePos, 'black-background-5': isBackground && absolutePos, 'back-blur-16': isBackgroundBlur}"
       :style="'position: ' + (absolutePos ? 'fixed' : 'static')">
     <div class="lo-uni-header">
-      <div class="indicator" :style="'transform: translateX(' + (22 + ((currentDividerIndex + 1) * 88))  + 'px)'"></div>
-      <ul class="lo-uni-header__menu">
-        <li>
-          <a>
-            Logo
-          </a>
-        </li>
+      <div class="indicator" ref="indicator" :style="'transform: translateX(' + (computedIndicatorOffsetX) + 'px)'"></div>
+      <a class="lo-uni-header__logo" ref="menuLogo" href="/">
+        新海诚影集
+      </a>
+      <ul class="lo-uni-header__menu" ref="headerMenu">
         <li v-for="(menu, index) in menus" @mouseover="currentDividerIndex = index" @mouseleave="currentDividerIndex = currentIndex">
           <a :href="menu.uri" :target="menu.blank ? '_blank' : '_self'">{{ menu.title }}</a>
           <ul class="lo-uni-header__menu--sub" v-if="menu.children.length != 0">
@@ -98,6 +106,7 @@ for(let i = 0; i < menus.length; i++) {
 }
 
 $nav-height: 64px;
+$btn-back-width: 32px;
 
 @include b("uni-header-wrapper") {
   width: 100%;
@@ -110,6 +119,7 @@ $nav-height: 64px;
   width: 100%;
   height: 100%;
   padding: 0 var(--padding-giant);
+  display: flex;
 
   $nav-item-width: 88px;
   .indicator {
@@ -118,6 +128,13 @@ $nav-height: 64px;
     background: rgb(105, 224, 255);
     transition-duration: var(--transition-duration-default);
     position: absolute;
+  }
+
+  @include e("logo") {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
   }
 
   @include e("menu") {
@@ -157,5 +174,4 @@ $nav-height: 64px;
 
 
 }
-
 </style>
