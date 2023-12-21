@@ -55,6 +55,64 @@ scrollTo(0,0)
       <div class="lo-section__header">
         <h1 class="lo-section__title">人物简介</h1>
       </div>
+      <div class="lo-section__content">
+        <div class="lo-character-container">
+          <div class="lo-character-card">
+            <div class="lo-character-card__feature">
+              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
+            </div>
+            <div class="lo-character-card__details-container">
+              <p class="lo-character-card-details__name">天野阳菜</p>
+              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
+            </div>
+          </div>
+          <div class="lo-character-card">
+            <div class="lo-character-card__feature">
+              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
+            </div>
+            <div class="lo-character-card__details-container">
+              <p class="lo-character-card-details__name">天野阳菜</p>
+              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
+            </div>
+          </div>
+          <div class="lo-character-card">
+            <div class="lo-character-card__feature">
+              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
+            </div>
+            <div class="lo-character-card__details-container">
+              <p class="lo-character-card-details__name">天野阳菜</p>
+              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
+            </div>
+          </div>
+          <div class="lo-character-card">
+            <div class="lo-character-card__feature">
+              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
+            </div>
+            <div class="lo-character-card__details-container">
+              <p class="lo-character-card-details__name">天野阳菜</p>
+              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
+            </div>
+          </div>
+          <div class="lo-character-card">
+            <div class="lo-character-card__feature">
+              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
+            </div>
+            <div class="lo-character-card__details-container">
+              <p class="lo-character-card-details__name">天野阳菜</p>
+              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
+            </div>
+          </div>
+          <div class="lo-character-card">
+            <div class="lo-character-card__feature">
+              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
+            </div>
+            <div class="lo-character-card__details-container">
+              <p class="lo-character-card-details__name">天野阳菜</p>
+              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <SiteFooter />
@@ -63,16 +121,79 @@ scrollTo(0,0)
 </template>
 
 <style scoped lang="scss">
+@include b("character-container") {
+  max-width: 1400px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 0 var(--padding-giant);
+}
+
+@include b("character-card") {
+  display: flex;
+  align-items: center;
+  background: var(--secondary-light-color);
+  padding: var(--padding-normal);
+  border-radius: var(--radius-normal);
+  box-shadow: 0 0 16px rgba(0,0,0,.1);
+  transition-duration: var(--transition-duration-default);
+
+  &:hover {
+    transition-duration: var(--transition-duration-default);
+    box-shadow: 0 0 16px rgba(0,0,0,.2);
+  }
+
+  @include e("feature") {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 4rem;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  @include e("details-container") {
+    padding: var(--padding-normal);
+  }
+
+}
+
+@include b("character-card-details") {
+
+  @include e("name") {
+    font-size: 1.5rem;
+  }
+
+  @include e("description") {
+    font-size: 1.2rem;
+    word-break: break-all;
+  }
+}
+</style>
+
+<style scoped lang="scss">
 @include b("section") {
   margin: var(--margin-giant) 0;
   width: 100%;
 
   @include e("header") {
     text-align: center;
+    margin: var(--margin-giant) 0;
   }
 
   @include e("title") {
     font-size: 2rem;
+  }
+
+  @include e("content") {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>
