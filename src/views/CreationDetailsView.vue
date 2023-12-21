@@ -24,6 +24,9 @@ function refreshData() {
 
 refreshData()
 
+// Scroll to top
+scrollTo(0,0)
+
 </script>
 
 <template>
