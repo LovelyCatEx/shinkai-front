@@ -2,7 +2,7 @@
 import {getCurrentInstance, Ref, ref} from "vue";
 import {CreationService} from "@/net/service/creation-service";
 import type {Result} from "@/net/result";
-import type {Creation} from "@/net/object/server-vo";
+import type {Creation, CreationCharacter} from "@/net/object/server-vo";
 import router from "@/router";
 import SiteFooter from "@/components/SiteFooter.vue";
 
@@ -12,12 +12,19 @@ const { proxy } = getCurrentInstance()
 const creationId = proxy.$route.params.id
 
 const creation: Ref<Creation> = ref({})
+const characters: Ref<Array<CreationCharacter>> = ref([])
 
 function refreshData() {
   service.getCreation(creationId, {
     onSuccess(message: string, data: Result<Creation>): void {
       data.data.publishedTime = data.data.publishedTime.split(" ")[0]
       creation.value = data.data
+    }
+  })
+  // Characters
+  service.getCharacters(creationId, {
+    onSuccess(message: string, data: Result<Array<CreationCharacter>>): void {
+      characters.value = data.data
     }
   })
 }
@@ -32,7 +39,7 @@ scrollTo(0,0)
 <template>
   <div class="lo-details-container">
     <div class="lo-details-banner-container">
-      <div class="lo-details-banner-container__background" :style="'background: url(' + creation.feature + ') center no-repeat;'"></div>
+      <div class="lo-details-banner-container__background" :style="'background: url(' + creation.feature + ') center no-repeat; background-size: cover;'"></div>
       <div class="lo-details-banner-container__btn-back" @click="router.back()">
         <svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="7072" width="200" height="200"><path d="M872.4 556.6s-0.1 0 0 0l-719.9-0.6c-24.6 0-44.6-20-44.6-44.7 0-24.6 20-44.6 44.6-44.6l719.8 0.7c24.6 0 44.6 20 44.6 44.7 0.1 24.6-19.9 44.5-44.5 44.5z" fill="#ffffff" p-id="7073"></path><path d="M456.8 924.1c-11.4 0-22.8-4.4-31.5-13.1L167.7 653.5c-78.4-78.4-78.4-205.9 0-284.3l257.5-257.5c17.4-17.4 45.7-17.4 63.1 0s17.4 45.7 0 63.1L230.8 432.3c-43.6 43.6-43.6 114.5 0 158.1l257.5 257.5c17.4 17.4 17.4 45.7 0 63.1-8.6 8.7-20.1 13.1-31.5 13.1z" fill="#ffffff" p-id="7074"></path></svg>
       </div>
@@ -57,58 +64,13 @@ scrollTo(0,0)
       </div>
       <div class="lo-section__content">
         <div class="lo-character-container">
-          <div class="lo-character-card">
+          <div class="lo-character-card" v-for="(character, index) in characters">
             <div class="lo-character-card__feature">
-              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
+              <img :src="character.avatar" :alt="character.name" />
             </div>
             <div class="lo-character-card__details-container">
-              <p class="lo-character-card-details__name">天野阳菜</p>
-              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
-            </div>
-          </div>
-          <div class="lo-character-card">
-            <div class="lo-character-card__feature">
-              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
-            </div>
-            <div class="lo-character-card__details-container">
-              <p class="lo-character-card-details__name">天野阳菜</p>
-              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
-            </div>
-          </div>
-          <div class="lo-character-card">
-            <div class="lo-character-card__feature">
-              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
-            </div>
-            <div class="lo-character-card__details-container">
-              <p class="lo-character-card-details__name">天野阳菜</p>
-              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
-            </div>
-          </div>
-          <div class="lo-character-card">
-            <div class="lo-character-card__feature">
-              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
-            </div>
-            <div class="lo-character-card__details-container">
-              <p class="lo-character-card-details__name">天野阳菜</p>
-              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
-            </div>
-          </div>
-          <div class="lo-character-card">
-            <div class="lo-character-card__feature">
-              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
-            </div>
-            <div class="lo-character-card__details-container">
-              <p class="lo-character-card-details__name">天野阳菜</p>
-              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
-            </div>
-          </div>
-          <div class="lo-character-card">
-            <div class="lo-character-card__feature">
-              <img src="@/assets/weathering/characters/622762d0f703918fa0ecbbc13370319759ee3d6d6e20.webp" alt=""/>
-            </div>
-            <div class="lo-character-card__details-container">
-              <p class="lo-character-card-details__name">天野阳菜</p>
-              <p class="lo-character-card-details__description">她是一名住在东京的中学生，拥有改变天气的能力，在母亲去世后与弟弟天野凪相依为命。机缘巧合下她认识了离家出走的森岛帆高，在帆高的帮助下改变了作为晴女被祭天的命运。并于三年后与他再次相遇。</p>
+              <p class="lo-character-card-details__name">{{ character.name }}</p>
+              <p class="lo-character-card-details__description">{{ character.description }}</p>
             </div>
           </div>
         </div>
@@ -133,7 +95,7 @@ scrollTo(0,0)
   display: flex;
   align-items: center;
   background: var(--secondary-light-color);
-  padding: var(--padding-normal);
+  padding: var(--padding-normal) var(--padding-giant);
   border-radius: var(--radius-normal);
   box-shadow: 0 0 16px rgba(0,0,0,.1);
   transition-duration: var(--transition-duration-default);
@@ -149,6 +111,7 @@ scrollTo(0,0)
     border-radius: 4rem;
     overflow: hidden;
     flex-shrink: 0;
+    box-shadow:  0 0 8px rgba(0,0,0,.15);
 
     img {
       width: 100%;
@@ -158,7 +121,7 @@ scrollTo(0,0)
   }
 
   @include e("details-container") {
-    padding: var(--padding-normal);
+    padding: var(--padding-normal) 0 var(--padding-normal) var(--padding-giant);
   }
 
 }
@@ -171,7 +134,7 @@ scrollTo(0,0)
 
   @include e("description") {
     font-size: 1.2rem;
-    word-break: break-all;
+    margin-top: var(--margin-lite);
   }
 }
 </style>
@@ -183,7 +146,7 @@ scrollTo(0,0)
 
   @include e("header") {
     text-align: center;
-    margin: var(--margin-giant) 0;
+    margin: calc(var(--margin-giant) * 2) 0;
   }
 
   @include e("title") {
@@ -211,12 +174,13 @@ scrollTo(0,0)
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
 
   @include e("background") {
     width: 100%;
     height: 100vh;
-    background-size: cover;
-    filter: blur(128px);
+    transform: scale(1.25);
+    filter: blur(64px);
   }
 
   @include e("btn-back") {

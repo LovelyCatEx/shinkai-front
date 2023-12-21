@@ -56,7 +56,7 @@ isBackground.value = false
 window.onscroll = () => {
   let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
   let screenHeight = document.documentElement.clientHeight || document.body.clientHeight
-  let fullHeight = document.getElementsByClassName("lo-creation-container")[0].clientHeight
+  let fullHeight = document.getElementsByClassName("lo-creation-container")[0]?.clientHeight
   const percentage = scrollTop / (fullHeight - screenHeight)
   isBackgroundBlur.value = percentage > 0.4
   isBackground.value = percentage > 0.4
