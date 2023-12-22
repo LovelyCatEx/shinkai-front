@@ -49,6 +49,12 @@ const computedBannerStyle = computed(() => {
 setInterval(() => adjustBannerIndex(true), 3000)
 
 
+// Creation
+function cardClickEvent(creation: Creation) {
+ window.open('/creation/' + creation.id, '_blank')
+}
+
+
 // Header
 const { isBackgroundBlur, isBackground } = storeToRefs(store.navHeaderStore)
 isBackgroundBlur.value = false
@@ -96,7 +102,7 @@ setTitle("影视作品")
     </div>
 
     <div class="lo-creation-view">
-      <div class="lo-creation-card" v-for="(creation, index) in creations" @click="router.push('/creation/' + creation.id)">
+      <div class="lo-creation-card" v-for="(creation, index) in creations" @click="cardClickEvent(creation)">
         <header class="lo-creation-card__header">
           <img class="lo-creation-card__feature" :src="creation.feature" :alt="creation.name" />
         </header>

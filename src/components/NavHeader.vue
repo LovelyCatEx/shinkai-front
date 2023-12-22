@@ -74,7 +74,7 @@ const computedIndicatorOffsetX = computed(() => {
         新海诚影集
       </a>
       <ul class="lo-uni-header__menu" ref="headerMenu">
-        <li v-for="(menu, index) in menus" @mouseover="currentDividerIndex = index" @mouseleave="currentDividerIndex = currentIndex">
+        <li v-for="(menu, index) in menus" :class="{'menu-item--active': currentIndex == index || currentDividerIndex == index}" @mouseover="currentDividerIndex = index" @mouseleave="currentDividerIndex = currentIndex">
           <a :href="menu.uri" :target="menu.blank ? '_blank' : '_self'">{{ menu.title }}</a>
           <ul class="lo-uni-header__menu--sub" v-if="menu.children.length != 0">
             <li v-for="(sub, k) in menu.children!">
@@ -103,6 +103,10 @@ const computedIndicatorOffsetX = computed(() => {
 
 .back-blur-16 {
   backdrop-filter: blur(16px);
+}
+
+.menu-item--active {
+  text-shadow: 0 0 10px #69e0ff, 0 0 20px #69e0ff, 0 0 40px #69e0ff;
 }
 
 $nav-height: 64px;
