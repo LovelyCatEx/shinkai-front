@@ -24,6 +24,8 @@ function refreshData() {
 refreshData()
 
 // Banner
+const bannerContainer = ref()
+
 const maxBannerDisplayCount = ref(3)
 
 const currentBannerIndex = ref(0)
@@ -62,9 +64,8 @@ isBackground.value = false
 
 window.onscroll = () => {
   let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-  let screenHeight = document.documentElement.clientHeight || document.body.clientHeight
-  let fullHeight = document.getElementsByClassName("lo-creation-container")[0]?.clientHeight
-  const percentage = scrollTop / (fullHeight - screenHeight)
+  let bannerHeight = bannerContainer.value?.clientHeight
+  const percentage = scrollTop / bannerHeight
   isBackgroundBlur.value = percentage > 0.4
   isBackground.value = percentage > 0.4
 }
@@ -75,7 +76,7 @@ setTitle("影视作品")
 
 <template>
   <div class="lo-creation-container">
-    <div class="lo-creation-banner-container">
+    <div class="lo-creation-banner-container" ref="bannerContainer">
       <div class="lo-creation-banner-action">
         <div class="lo-creation-banner-action__btn-wrapper lo-creation-banner-action__btn-wrapper--left">
           <div class="lo-creation-banner-action__btn lo-creation-banner-action__pre" @click.stop="adjustBannerIndex(false)">
