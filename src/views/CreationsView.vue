@@ -93,7 +93,7 @@ setTitle("影视作品")
       </div>
 
       <div class="lo-creation-banner" :style="computedBannerStyle">
-        <div class="lo-creation-banner__item" v-for="(item, index) in computedBannerData" :style="'background: url(' + item.feature + ') center no-repeat; background-size: cover;'"></div>
+        <div class="lo-creation-banner__item" v-for="(item, index) in computedBannerData" :style="'background: url(' + Creation.getFeatureUrl(item, AssetsSize.MEDIUM) + ') center no-repeat; background-size: cover;'"></div>
       </div>
     </div>
 
