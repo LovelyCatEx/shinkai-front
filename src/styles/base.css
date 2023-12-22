@@ -36,3 +36,12 @@ html, body {
         opacity: 1;
     }
 }
+
+@keyframes right-to-left-in {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

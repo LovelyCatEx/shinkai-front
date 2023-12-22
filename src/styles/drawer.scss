@@ -1,0 +1,21 @@
+@include b("drawer-container") {
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  position: fixed;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  animation: fade-in ease-in-out var(--transition-duration-slow);
+
+  @include e("placeholder") {
+    flex-grow: 1;
+  }
+}
+
+@include b("drawer") {
+  width: 70%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  animation: right-to-left-in ease-in-out var(--transition-duration-slow);
+}

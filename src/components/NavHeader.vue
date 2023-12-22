@@ -83,10 +83,8 @@ const computedIndicatorOffsetX = computed(() => {
   return menuLogo.value?.clientWidth + headerMenu.value?.getElementsByClassName("lo-uni-header__menu--item")[currentDividerIndex.value].clientWidth * currentDividerIndex.value + (indicator.value?.clientWidth / 2)
 })
 
-// Sub-menu
-function showSubMenuIsExists(index: number, show: boolean) {
-
-}
+// Drawer
+const isDrawerShowing = ref(false)
 </script>
 
 <template>
@@ -115,9 +113,97 @@ function showSubMenuIsExists(index: number, show: boolean) {
           </ul>
         </li>
       </ul>
+      <div style="flex-grow: 1"></div>
+      <div class="lo-uni-header-menu-mobile">
+        <div class="drawer-btn" @click="isDrawerShowing = true">
+          <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7072" width="200" height="200"><path d="M883.2 224.5H144.3c-24.7 0-44.8-20.1-44.8-44.8s20.1-44.8 44.8-44.8h738.9c24.7 0 44.8 20.1 44.8 44.8s-20.1 44.8-44.8 44.8zM883.2 549.2H144.3c-24.7 0-44.8-20.1-44.8-44.8 0-24.7 20.1-44.8 44.8-44.8h738.9c24.7 0 44.8 20.1 44.8 44.8 0 24.7-20.1 44.8-44.8 44.8zM883.2 873.8H144.3c-24.7 0-44.8-20.1-44.8-44.8s20.1-44.8 44.8-44.8h738.9c24.7 0 44.8 20.1 44.8 44.8s-20.1 44.8-44.8 44.8z" fill="#ffffff" p-id="7073"></path></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lo-drawer-container" :style="'display: ' + (isDrawerShowing ? 'flex' : 'none')">
+    <div class="lo-drawer-container__placeholder"  @click="isDrawerShowing = false"></div>
+    <div class="lo-drawer">
+      <div class="lo-uni-header-menu-drawer-container">
+        <div class="lo-uni-header-menu-drawer">
+          <div class="lo-uni-header-menu-drawer__closer">
+            <svg @click="isDrawerShowing = false" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7278" width="200" height="200"><path d="M806.2 281.8L281.9 806.2c-17.5 17.5-46 17.5-63.6 0-17.5-17.5-17.5-46 0-63.6l524.3-524.3c17.5-17.5 46-17.5 63.6 0s17.6 46 0 63.5z" fill="#ffffff" p-id="7279"></path><path d="M806.2 806.2c-17.5 17.5-46 17.5-63.6 0L218.3 281.8c-17.5-17.5-17.5-46 0-63.6s46-17.5 63.6 0l524.3 524.3c17.6 17.7 17.6 46.1 0 63.7z" fill="#ffffff" p-id="7280"></path></svg>
+          </div>
+          <ul class="lo-uni-header-menu-drawer-menu">
+            <li class="lo-uni-header-menu-drawer-menu__item" v-for="(item, index) in menus">
+              <a :href="item.uri" :target="item.blank ? '_blank' : '_self'">{{ item.title }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import "@/styles/drawer";
+
+@include b("uni-header-menu-drawer-container") {
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+
+@include b("uni-header-menu-drawer") {
+
+  @include e("closer") {
+    $height: 64px;
+    width: 100%;
+    height: $height;
+    background: #393b40;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    svg {
+      margin-right: var(--margin-normal);
+      width: calc($height / 2);
+      height: calc($height / 2);
+      cursor: pointer;
+    }
+  }
+}
+
+@include b("uni-header-menu-drawer-menu") {
+  width: 100%;
+  height: 100%;
+
+  @include e("item") {
+    display: block;
+    font-size: 2rem;
+    padding: var(--padding-giant) calc(var(--padding-giant) * 1.25);
+    cursor: pointer;
+    background: white;
+    color: #393b40;
+    border-bottom: 1px solid #eee;
+  }
+}
+</style>
+
+<style scoped lang="scss">
+@include b("uni-header-menu-mobile") {
+  $drawer-btn-width: 2rem;
+  width: calc($drawer-btn-width * 1.25);
+  height: calc($drawer-btn-width * 1.25);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  .drawer-btn {
+    svg {
+      width: $drawer-btn-width;
+      height: $drawer-btn-width;
+    }
+  }
+}
+</style>
 
 <style scoped lang="scss">
 .white {
@@ -156,6 +242,7 @@ $btn-back-width: 32px;
   height: 100%;
   padding: 0 var(--padding-giant);
   display: flex;
+  align-items: center;
 
   $nav-item-width: 88px;
   .indicator {
@@ -164,6 +251,7 @@ $btn-back-width: 32px;
     background: rgb(105, 224, 255);
     transition-duration: var(--transition-duration-default);
     position: absolute;
+    top: 0;
   }
 
   @include e("logo") {
@@ -219,6 +307,23 @@ $btn-back-width: 32px;
     }
   }
 
-
 }
+</style>
+
+<style scoped lang="scss">
+@media screen and (max-width: 768px){
+  @include b("uni-header") {
+    .indicator {
+      display: none;
+    }
+    @include e("menu") {
+      display: none;
+    }
+  }
+
+  @include b("uni-header-menu-mobile") {
+    display: flex;
+  }
+}
+
 </style>
