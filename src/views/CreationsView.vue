@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import {CreationService} from "@/net/service/creation-service";
 import type {Result} from "@/net/result";
-import type {Creation} from "@/net/object/server-vo";
+import {AssetsSize, Creation} from "@/net/object/server-vo";
 import {computed, Ref, ref} from "vue";
 import SiteFooter from "@/components/SiteFooter.vue";
 import store from "@/store";
 import {storeToRefs} from "pinia";
-import router from "@/router";
 import {setTitle} from "@/js/universal-utils";
 
 const service = new CreationService()
@@ -105,11 +104,11 @@ setTitle("影视作品")
     <div class="lo-creation-view">
       <div class="lo-creation-card" v-for="(creation, index) in creations" @click="cardClickEvent(creation)">
         <header class="lo-creation-card__header">
-          <img class="lo-creation-card__feature" :src="creation.feature" :alt="creation.name" />
+          <img class="lo-creation-card__feature" :src="Creation.getFeatureUrl(creation, AssetsSize.MEDIUM)" :alt="creation.name" />
         </header>
         <div class="lo-creation-card__content">
-          <p class="lo-creation-card__name">{{creation.name}}</p>
-          <p class="lo-creation-card__description">{{creation.descriptionShort}}</p>
+          <p class="lo-creation-card__name">{{ creation.name }}</p>
+          <p class="lo-creation-card__description">{{ creation.descriptionShort }}</p>
         </div>
       </div>
     </div>

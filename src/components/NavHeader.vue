@@ -78,9 +78,15 @@ for(let i = 0; i < menus.length; i++) {
 }
 
 // Indicator
+const currentMouseIndex = ref(-1)
 const computedIndicatorOffsetX = computed(() => {
-  return menuLogo.value?.clientWidth + headerMenu.value?.getElementsByTagName("li")[currentDividerIndex.value].clientWidth * currentDividerIndex.value + (indicator.value?.clientWidth / 2)
+  return menuLogo.value?.clientWidth + headerMenu.value?.getElementsByClassName("lo-uni-header__menu--item")[currentDividerIndex.value].clientWidth * currentDividerIndex.value + (indicator.value?.clientWidth / 2)
 })
+
+// Sub-menu
+function showSubMenuIsExists(index: number, show: boolean) {
+
+}
 </script>
 
 <template>
@@ -94,11 +100,15 @@ const computedIndicatorOffsetX = computed(() => {
       </a>
       <ul class="lo-uni-header__menu" ref="headerMenu">
         <li v-for="(menu, index) in menus"
+            class="lo-uni-header__menu--item"
             :class="{'menu-item--active': isShowingIndicatorAndActiveItem && (currentIndex == index || currentDividerIndex == index)}"
-            @mouseover="currentDividerIndex = index"
-            @mouseleave="currentDividerIndex = currentIndex">
+            @mouseover="currentDividerIndex = index; currentMouseIndex = index"
+            @mouseleave="currentDividerIndex = currentIndex; currentMouseIndex = -1">
           <a :href="menu.uri" :target="menu.blank ? '_blank' : '_self'">{{ menu.title }}</a>
-          <ul class="lo-uni-header__menu--sub" v-if="menu.children.length != 0">
+          <ul v-if="menu.children.length != 0"
+              class="lo-uni-header__menu--sub"
+              :class="{'lo-uni-header__menu--sub--active': currentMouseIndex == index}"
+             >
             <li v-for="(sub, k) in menu.children!">
               <a :href="sub.uri" :target="sub.blank ? '_blank' : '_self'">{{ sub.title }}</a>
             </li>
@@ -169,7 +179,7 @@ $btn-back-width: 32px;
     align-items: center;
     font-size: 16px;
 
-    li {
+    @include m("item"){
       width: $nav-item-width;
       text-align: center;
       display: inline-block;
@@ -178,9 +188,9 @@ $btn-back-width: 32px;
       word-break: keep-all;
     }
 
-    &:hover &--sub {
-      opacity: 1;
-      transition-duration: var(--transition-duration-default);
+    &--sub--active {
+      opacity: 1!important;
+      transition-duration: var(--transition-duration-default)!important;
     }
 
     @include m("sub") {
@@ -194,11 +204,12 @@ $btn-back-width: 32px;
       overflow: hidden;
 
       li {
-        padding: var(--padding-normal) 0;
+        padding: var(--padding-normal) var(--padding-normal);
         color: var(--default-text-color);
         text-shadow: none;
         font-size: 1rem;
         transition-duration: var(--transition-duration-default);
+        cursor: pointer;
 
         &:hover {
           transition-duration: var(--transition-duration-default);

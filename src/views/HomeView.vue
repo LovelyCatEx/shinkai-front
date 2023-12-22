@@ -10,10 +10,10 @@ const {isBackground, isBackgroundBlur} = storeToRefs(store.navHeaderStore)
 
 let scrollData = {
   backgroundImages: [
-      '/src/assets/suzume/suzume-feature.jpg',
-      '/src/assets/suzume/suzume-kanameishi.png',
-      '/src/assets/suzume/suzume-ushirodoru.png',
-      '/src/assets/suzume/suzume-nimizu.png'
+      'https://oss.lovelycatv.cn/assets-oss-v1/suzume/8ZwsrEf3sNOvl1.jpg',
+      'https://oss.lovelycatv.cn/assets-oss-v1/suzume/Pz5gUx0pBZPsgqHb1.png',
+      'https://oss.lovelycatv.cn/assets-oss-v1/suzume/U025xfDvYqkrWDLBS.png',
+      'https://oss.lovelycatv.cn/assets-oss-v1/suzume/OGYqHAmksXTG9.png'
   ],
   asideData: ['铃芽之旅', '要石' ,'往门', '蚓厄'],
   showAside: true,
