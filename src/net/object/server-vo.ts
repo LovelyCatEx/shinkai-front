@@ -14,6 +14,7 @@ export class Creation {
 
     public static getFeatureUrl(creation: Creation, size: AssetsSize) {
         const feature = creation.feature
+        if (feature == undefined || feature == "") return ""
         const extPointIndex = feature.lastIndexOf('.')
         const fileFullPath = feature.substring(0, extPointIndex)
         const ext = feature.substring(extPointIndex, feature.length)

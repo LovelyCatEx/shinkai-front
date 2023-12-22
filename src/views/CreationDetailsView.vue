@@ -2,8 +2,7 @@
 import {getCurrentInstance, Ref, ref, watchEffect} from "vue";
 import {CreationService} from "@/net/service/creation-service";
 import type {Result} from "@/net/result";
-import type {Creation, CreationCharacter} from "@/net/object/server-vo";
-import router from "@/router";
+import {AssetsSize, Creation, CreationCharacter} from "@/net/object/server-vo";
 import SiteFooter from "@/components/SiteFooter.vue";
 import {setTitle} from "@/js/universal-utils";
 import {storeToRefs} from "pinia";
@@ -49,7 +48,7 @@ watchEffect(() => {
 <template>
   <div class="lo-details-container">
     <div class="lo-details-banner-container">
-      <div class="lo-details-banner-container__background" :style="'background: url(' + creation.feature + ') center no-repeat; background-size: cover;'"></div>
+      <div class="lo-details-banner-container__background" :style="'background: url(' + Creation.getFeatureUrl(creation, AssetsSize.TINY) + ') center no-repeat; background-size: cover;'"></div>
       <div class="lo-details-banner">
         <div class="lo-details-banner__feature">
           <img :src="creation.featureVertical" :alt="creation.name" />
