@@ -257,5 +257,9 @@ watchEffect(() => {
   @include b("details-banner") {
     grid-template-columns: 1fr;
   }
+
+  @include b("character-container") {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
