@@ -249,7 +249,6 @@ $btn-back-width: 32px;
     width: calc($nav-item-width / 2);
     height: 5px;
     background: rgb(105, 224, 255);
-    transition-duration: var(--transition-duration-default);
     position: absolute;
     top: 0;
   }
@@ -288,7 +287,6 @@ $btn-back-width: 32px;
       margin-top: var(--margin-lite);
       position: absolute;
       opacity: 0;
-      transition-duration: var(--transition-duration-default);
       overflow: hidden;
 
       li {
@@ -296,11 +294,9 @@ $btn-back-width: 32px;
         color: var(--default-text-color);
         text-shadow: none;
         font-size: 1rem;
-        transition-duration: var(--transition-duration-default);
         cursor: pointer;
 
         &:hover {
-          transition-duration: var(--transition-duration-default);
           background: var(--secondary-light-color);
         }
       }

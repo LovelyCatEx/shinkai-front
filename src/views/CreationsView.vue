@@ -144,7 +144,6 @@ setTitle("影视作品")
   cursor: pointer;
 
   &:hover &__feature {
-    transition-duration: var(--transition-duration-default);
     transform: scale(1.05);
     box-shadow: 0 0 8px rgba(0,0,0,.35);
   }
@@ -160,7 +159,6 @@ setTitle("影视作品")
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition-duration: var(--transition-duration-default);
   }
 
   @include e("content") {
@@ -248,12 +246,10 @@ setTitle("影视作品")
     justify-content: center;
     align-items: center;
     color: white;
-    transition-duration: var(--transition-duration-default);
     margin: var(--margin-giant);
 
     &:hover {
       background: rgba(0,0,0,.3);
-      transition-duration: var(--transition-duration-default);
     }
 
     svg {

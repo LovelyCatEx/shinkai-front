@@ -41,12 +41,10 @@ import router from "@/router";
     background: var(--primary-color);
     color: var(--primary-text-color);
     box-shadow: 0 0 4px rgba(0, 0, 0, .2);
-    transition-duration: var(--transition-duration-default);
 
     &:hover {
       background: var(--primary-light-color);
       box-shadow: 0 0 4px var(--primary-light-color);
-      transition-duration: var(--transition-duration-default);
     }
   }
 }

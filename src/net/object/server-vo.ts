@@ -38,3 +38,13 @@ export interface CreationCharacter {
     avatar: string,
     performer: string
 }
+
+export interface CreationSection {
+    id: number,
+    cid: number,
+    title: string,
+    subtitle: string,
+    type: number,
+    feature: string,
+    content: string
+}

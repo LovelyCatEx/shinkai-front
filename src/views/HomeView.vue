@@ -11,9 +11,9 @@ const {isBackground, isBackgroundBlur} = storeToRefs(store.navHeaderStore)
 let scrollData = {
   backgroundImages: [
       'https://oss.lovelycatv.cn/assets-oss-v1/suzume/8ZwsrEf3sNOvl1.jpg',
-      'https://oss.lovelycatv.cn/assets-oss-v1/suzume/Pz5gUx0pBZPsgqHb1.png',
-      'https://oss.lovelycatv.cn/assets-oss-v1/suzume/U025xfDvYqkrWDLBS.png',
-      'https://oss.lovelycatv.cn/assets-oss-v1/suzume/OGYqHAmksXTG9.png'
+      'https://oss.lovelycatv.cn/assets-oss-v1/suzume/Pz5gUx0pBZPsgqHb1-medium.png',
+      'https://oss.lovelycatv.cn/assets-oss-v1/suzume/U025xfDvYqkrWDLBS-medium.png',
+      'https://oss.lovelycatv.cn/assets-oss-v1/suzume/OGYqHAmksXTG9-medium.png'
   ],
   asideData: ['铃芽之旅', '要石' ,'往门', '蚓厄'],
   showAside: true,

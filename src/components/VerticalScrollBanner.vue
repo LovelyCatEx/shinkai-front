@@ -195,7 +195,6 @@ function handleTouchMove(e) {
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    transition-duration: var(--transition-duration-default);
 
     @include e("line") {
       $width: 2px;

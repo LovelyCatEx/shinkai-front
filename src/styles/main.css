@@ -38,6 +38,10 @@ html, body {
   background: var(--secondary-color);
 }
 
+* {
+  transition-duration: var(--transition-duration-default);
+}
+
 @media screen and (max-width: 767px) {
   html {
     font-size: 12px;
