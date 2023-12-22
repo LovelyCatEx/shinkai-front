@@ -135,12 +135,13 @@ watchEffect(() => {
     width: 32rem;
     height: 18rem;
     object-fit: cover;
+    justify-self: center;
   }
 
   @include e("content-container") {
     height: 100%;
     display: flex;
-    padding: 0 var(--padding-giant);
+    padding: var(--padding-large) var(--padding-giant);
   }
 
   @include e("content") {
@@ -150,6 +151,46 @@ watchEffect(() => {
     line-height: calc($font-size * 1.5);
   }
 }
+
+$feature-width: 48rem;
+$feature-height: 27rem;
+$media-width-arr: 300px, 500px, 680px, 900px, 1200px;
+$media-scale-arr: 0.6, 0.7, 0.8, 0.9, 1.2;
+
+@mixin section-0-grid-flexible($i) {
+  @include b("section-0") {
+    width: calc($feature-width * nth($media-scale-arr, $i));
+    grid-template-columns: 1fr!important;
+
+    @include e("feature") {
+      width: calc($feature-width * nth($media-scale-arr, $i));
+      height: calc($feature-height * nth($media-scale-arr, $i));
+      object-fit: cover;
+      justify-self: center;
+    }
+  }
+}
+
+@media screen and (max-width: 300px) {
+  @include section-0-grid-flexible(1);
+}
+
+@media screen and (min-width: 300px) and (max-width: 500px) {
+  @include section-0-grid-flexible(2);
+}
+
+@media screen and (min-width: 500px) and (max-width: 680px) {
+  @include section-0-grid-flexible(3);
+}
+
+@media screen and (min-width: 680px) and (max-width: 900px){
+  @include section-0-grid-flexible(4);
+}
+
+@media screen and (min-width: 900px) and (max-width: 1200px){
+  @include section-0-grid-flexible(5);
+}
+
 </style>
 
 <style scoped lang="scss">
@@ -158,7 +199,7 @@ watchEffect(() => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
-  padding: 0 var(--padding-giant);
+  padding: 0 2rem;
 }
 
 @include b("character-card") {
