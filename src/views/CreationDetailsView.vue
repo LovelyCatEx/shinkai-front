@@ -6,6 +6,8 @@ import type {Creation, CreationCharacter} from "@/net/object/server-vo";
 import router from "@/router";
 import SiteFooter from "@/components/SiteFooter.vue";
 import {setTitle} from "@/js/universal-utils";
+import {storeToRefs} from "pinia";
+import store from "@/store";
 
 const service = new CreationService()
 
@@ -14,6 +16,9 @@ const creationId = proxy.$route.params.id
 
 const creation: Ref<Creation> = ref({})
 const characters: Ref<Array<CreationCharacter>> = ref([])
+
+const { isShowingIndicatorAndActiveItem } = storeToRefs(store.navHeaderStore)
+isShowingIndicatorAndActiveItem.value = false
 
 function refreshData() {
   service.getCreation(creationId, {

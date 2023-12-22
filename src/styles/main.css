@@ -8,6 +8,8 @@
   --secondary-light-color: #edf7fe;
   --primary-text-color: white;
 
+  --default-text-color: #525f7f;
+
   --shadow-normal: rgba(0,0,0,.5);
 
   --transition-duration-slow: .5s;

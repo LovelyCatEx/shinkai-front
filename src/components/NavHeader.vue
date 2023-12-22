@@ -10,7 +10,7 @@ const props = defineProps<{
 }>()
 
 // Store
-const { isBackground, isBackgroundBlur } = storeToRefs(store.navHeaderStore)
+const { isBackground, isBackgroundBlur, isShowingIndicatorAndActiveItem } = storeToRefs(store.navHeaderStore)
 
 interface NavHeaderMenu {
   title: string,
@@ -30,7 +30,26 @@ const menus: Array<NavHeaderMenu> = [
     title: '影视作品',
     uri: '/creations',
     blank: false,
-    children: []
+    children: [
+      {
+        title: '铃芽之旅',
+        uri: '/creation/8',
+        blank: true,
+        children: []
+      },
+      {
+        title: '天气之子',
+        uri: '/creation/7',
+        blank: true,
+        children: []
+      },
+      {
+        title: '你的名字',
+        uri: '/creation/6',
+        blank: true,
+        children: []
+      }
+    ]
   },
   {
     title: '精彩图集',
@@ -69,12 +88,15 @@ const computedIndicatorOffsetX = computed(() => {
       :class="{'lo-uni-header-wrapper': true, 'white': absolutePos, 'black-background-5': isBackground && absolutePos, 'back-blur-16': isBackgroundBlur}"
       :style="'position: ' + (absolutePos ? 'fixed' : 'static')">
     <div class="lo-uni-header">
-      <div class="indicator" ref="indicator" :style="'transform: translateX(' + (computedIndicatorOffsetX) + 'px)'"></div>
+      <div class="indicator" ref="indicator" :style="'transform: translateX(' + (computedIndicatorOffsetX) + 'px)'" v-show="isShowingIndicatorAndActiveItem"></div>
       <a class="lo-uni-header__logo" ref="menuLogo" href="/">
         新海诚影集
       </a>
       <ul class="lo-uni-header__menu" ref="headerMenu">
-        <li v-for="(menu, index) in menus" :class="{'menu-item--active': currentIndex == index || currentDividerIndex == index}" @mouseover="currentDividerIndex = index" @mouseleave="currentDividerIndex = currentIndex">
+        <li v-for="(menu, index) in menus"
+            :class="{'menu-item--active': isShowingIndicatorAndActiveItem && (currentIndex == index || currentDividerIndex == index)}"
+            @mouseover="currentDividerIndex = index"
+            @mouseleave="currentDividerIndex = currentIndex">
           <a :href="menu.uri" :target="menu.blank ? '_blank' : '_self'">{{ menu.title }}</a>
           <ul class="lo-uni-header__menu--sub" v-if="menu.children.length != 0">
             <li v-for="(sub, k) in menu.children!">
@@ -169,9 +191,19 @@ $btn-back-width: 32px;
       position: absolute;
       opacity: 0;
       transition-duration: var(--transition-duration-default);
+      overflow: hidden;
 
       li {
-        padding: var(--padding-lite) var(--padding-normal);
+        padding: var(--padding-normal) 0;
+        color: var(--default-text-color);
+        text-shadow: none;
+        font-size: 1rem;
+        transition-duration: var(--transition-duration-default);
+
+        &:hover {
+          transition-duration: var(--transition-duration-default);
+          background: var(--secondary-light-color);
+        }
       }
     }
   }
