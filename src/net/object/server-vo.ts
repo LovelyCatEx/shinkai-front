@@ -48,3 +48,14 @@ export interface CreationSection {
     feature: string,
     content: string
 }
+
+export interface Comment {
+    id: number,
+    cid: number,
+    nickname: string,
+    email: string,
+    content: string,
+    rates: number,
+    publishedTime: string,
+    published: boolean
+}

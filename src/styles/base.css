@@ -13,6 +13,19 @@ html, body {
     height: 100%;
 }
 
+.flex-vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-horizontal {
+    display: flex;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
 @keyframes wave {
     0% {
         transform: translate(-50%, -50%) scale(0.5);

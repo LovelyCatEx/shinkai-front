@@ -2,14 +2,17 @@
 import {getCurrentInstance, Ref, ref, watchEffect} from "vue";
 import {CreationService} from "@/net/service/creation-service";
 import type {Result} from "@/net/result";
-import {AssetsSize, Creation, CreationCharacter, CreationSection} from "@/net/object/server-vo";
+import {AssetsSize, Comment, Creation, CreationCharacter, CreationSection} from "@/net/object/server-vo";
 import SiteFooter from "@/components/SiteFooter.vue";
 import {setTitle} from "@/js/universal-utils";
 import {storeToRefs} from "pinia";
 import store from "@/store";
 import Section from "@/components/Section.vue";
+import Comments from "@/components/Comments.vue";
+import {CommentService} from "@/net/service/comment-service";
 
 const service = new CreationService()
+const commentService = new CommentService()
 
 const { proxy } = getCurrentInstance()
 const creationId = proxy.$route.params.id
@@ -17,6 +20,7 @@ const creationId = proxy.$route.params.id
 const creation: Ref<Creation> = ref({})
 const characters: Ref<Array<CreationCharacter>> = ref([])
 const sections: Ref<Array<CreationSection>> = ref([])
+const comments: Ref<Array<Comment>> = ref([])
 
 const { isShowingIndicatorAndActiveItem } = storeToRefs(store.navHeaderStore)
 isShowingIndicatorAndActiveItem.value = false
@@ -44,6 +48,13 @@ function refreshData() {
       console.log(sections.value)
     }
   })
+
+  // Comments
+  commentService.getCreationComments(creationId, {
+    onSuccess(message: string, data: Result<Array<Comment>>): void {
+      comments.value = data.data
+    }
+  })
 }
 
 refreshData()
@@ -55,6 +66,37 @@ scrollTo(0,0)
 watchEffect(() => {
   setTitle(creation.value.name)
 })
+
+// Comment
+const inputComment: Ref<Comment> = ref({
+  id: 0,
+  cid: parseInt(creationId),
+  nickname: "LovelyCat",
+  email: "no-reply@lovelycatv.com",
+  rates: 48,
+  published: true,
+  publishedTime: "",
+  content: "test content"
+})
+
+function submitComment() {
+  if (inputComment.value.nickname == "") {
+    return
+  }
+  if (inputComment.value.email == "") {
+    return
+  }
+  if (inputComment.value.content == "") {
+    return
+  }
+  inputComment.value.rates = 48
+  commentService.postNewComment(inputComment.value, {
+    onSuccess(message: string, data: Result<any>): void {
+      console.error(message)
+    }
+  })
+}
+
 </script>
 
 <template>
@@ -107,12 +149,90 @@ watchEffect(() => {
       </template>
     </Section>
 
+    <Section :title="'评论 ' + comments.length">
+      <template #default>
+        <Comments :data="comments" />
+      </template>
+    </Section>
+
+    <Section title="发表评论">
+      <template #default>
+        <div class="lo-comment-pub-container">
+          <div class="lo-comment-pub">
+            <textarea class="lo-comment-pub__content input-base" placeholder="你猜我的评论区在等谁?" v-model="inputComment.content" />
+            <div class="flex-horizontal">
+              <input class="input-base" placeholder="昵称" v-model="inputComment.nickname" />
+              <div style="margin: 0 var(--margin-normal)"></div>
+              <input class="input-base" placeholder="邮箱" v-model="inputComment.email" />
+            </div>
+            <button class="comment-submit-btn" @click="submitComment()">发表评论</button>
+          </div>
+        </div>
+      </template>
+    </Section>
+
     <div style="margin: calc(var(--margin-giant) * 4) 0"></div>
 
     <SiteFooter />
 
   </div>
 </template>
+
+<!--Comment-->
+<style scoped lang="scss">
+.input-base {
+  width: 100%;
+  border-radius: var(--radius-normal);
+  border: 0;
+  box-shadow: 0 1px 3px rgba(50,50,93,.15), 0 1px 0 rgba(0,0,0,.02);
+  font-weight: 400;
+  line-height: 1.5;
+  background: var(--secondary-light-color);
+  padding: var(--padding-normal);
+}
+
+.comment-submit-btn {
+  width: 8rem;
+  background: var(--primary-color);
+  border: none;
+  padding: var(--padding-lite) var(--padding-normal);
+  color: white;
+  border-radius: var(--radius-normal);
+  margin-top: var(--margin-normal);
+  align-self: end;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--primary-light-color);
+  }
+}
+
+@include b("comment-pub-container") {
+  width: 100%;
+  max-width: 1400px;
+  padding: 2rem;
+}
+
+@include b("comment-pub") {
+  display: flex;
+  flex-direction: column;
+
+  @include e("content") {
+    transition: height 0.15s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    min-height: 80px;
+    resize: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-bottom: 18px;
+    margin-top: 20px;
+  }
+
+  @include e("sumbit") {
+
+  }
+}
+</style>
 
 <style scoped lang="scss">
 @include b("section-0-container") {
