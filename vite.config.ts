@@ -9,7 +9,6 @@ export default defineConfig(({command,mode}) => {
   const config = loadEnv(mode, "./")
   console.log("Loaded config: ", config, "mode: ", mode, "command: ", command)
   return {
-    base: './',
     plugins: [
       vue(),
     ],

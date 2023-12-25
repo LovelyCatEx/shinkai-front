@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, ref, watchEffect, getCurrentInstance, Directive, watch} from "vue";
+import {computed, ref, watchEffect, watch} from "vue";
 // Hide Scroll Bar
 
 document.getElementsByTagName("body")[0].style.overflow = "hidden";
@@ -23,8 +23,8 @@ const emits = defineEmits(['scroll-event'])
 const element = ref('element')
 
 watchEffect(() => {
-  if (element.value.style) {
-    element.value.style.transform = transformScroll.value
+  if ((element.value as HTMLElement).style) {
+    (element.value as HTMLElement).style.transform = transformScroll.value
   }
 })
 
@@ -41,7 +41,7 @@ const transformScroll = computed(() => {
 
 const isCloseTransition = ref(false)
 const canRun = ref(true)
-function mousewheel(e) {
+function mousewheel(e: WheelEvent) {
   isCloseTransition.value = false
   if (canRun.value) {
     canRun.value = false
@@ -52,7 +52,7 @@ function mousewheel(e) {
   }
 }
 
-function goScroll(e) {
+function goScroll(e: WheelEvent) {
   if (e.wheelDelta < 0) {
     next()
   } else {
@@ -80,7 +80,7 @@ function last() {
   }
 }
 
-function changeBac(index) {
+function changeBac(index: number) {
   isCloseTransition.value = false
   $index.value = index
 }
@@ -90,11 +90,11 @@ const startY = ref(0) //记录开始位置
 const endY = ref(0) //记录结束位置
 const moveDistance = ref(0) //滑动距离
 
-function handleTouchStart(e) {
+function handleTouchStart(e: TouchEvent) {
   startY.value = e.touches[0].pageY || e.changedTouches[0].pageY
 }
 
-function handleTouchEnd(e) {
+function handleTouchEnd(e: TouchEvent) {
   isCloseTransition.value = false
 
   endY.value = e.changedTouches[0].pageY || e.touches[0].pageY
@@ -107,11 +107,11 @@ function handleTouchEnd(e) {
       $index.value--
     }
   } else {
-    element.value.style.transform = `translateY(-${$index.value * windowHeight.value}px)`
+    (element.value as HTMLElement).style.transform = `translateY(-${$index.value * windowHeight.value}px)`
   }
 }
 
-function handleTouchMove(e) {
+function handleTouchMove(e: TouchEvent) {
   e.preventDefault()
   isCloseTransition.value = true
   moveDistance.value = (e.changedTouches[0].pageY || e.touches[0].pageY) - startY.value
@@ -123,7 +123,7 @@ function handleTouchMove(e) {
     return
   }
 
-  element.value.style.transform = `translateY(-${$index.value * windowHeight.value + moveDistance.value * -1}px)`
+  (element.value as HTMLElement).style.transform = `translateY(-${$index.value * windowHeight.value + moveDistance.value * -1}px)`
 }
 
 //#endregion

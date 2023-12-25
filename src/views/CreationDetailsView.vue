@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import {getCurrentInstance, ref, watchEffect} from "vue";
 import type {Ref} from 'vue';
+import {getCurrentInstance, ref, watchEffect} from "vue";
 import {CreationService} from "@/net/service/creation-service";
 import type {Result} from "@/net/result";
-import {AssetsSize, Comment, Creation} from "@/net/object/server-vo";
 import type {CreationCharacter, CreationSection} from "@/net/object/server-vo"
+import {AssetsSize, Comment, Creation, getOSSImageUrl} from "@/net/object/server-vo";
 import SiteFooter from "@/components/SiteFooter.vue";
 import {setTitle} from "@/js/universal-utils";
 import {storeToRefs} from "pinia";
 import store from "@/store";
 import Section from "@/components/Section.vue";
-import Comments from "@/components/Comments.vue";
 import {CommentService} from "@/net/service/comment-service";
+import Comments from "@/components/Comments.vue";
 
 const service = new CreationService()
 const commentService = new CommentService()
@@ -22,7 +22,7 @@ const creationId = proxy.$route.params.id
 const creation: Ref<Creation> = ref({})
 const characters: Ref<Array<CreationCharacter>> = ref([])
 const sections: Ref<Array<CreationSection>> = ref([])
-const comments: Ref<Array<Comment>> = ref([])
+const creationComments: Ref<Array<Comment>> = ref([])
 
 const { isShowingIndicatorAndActiveItem } = storeToRefs(store.navHeaderStore)
 isShowingIndicatorAndActiveItem.value = false
@@ -30,7 +30,7 @@ isShowingIndicatorAndActiveItem.value = false
 function refreshComments() {
   commentService.getCreationComments(creationId, {
     onSuccess(message: string, data: Result<Array<Comment>>): void {
-      comments.value = data.data
+      creationComments.value = data.data
     }
   })
 }
@@ -133,12 +133,12 @@ function submitComment() {
       </div>
     </div>
 
-    <Section title="人物简介">
+    <Section title="角色介绍">
       <template #default>
         <div class="lo-character-container">
           <div class="lo-character-card" v-for="(character, index) in characters">
             <div class="lo-character-card__feature">
-              <img :src="character.avatar" :alt="character.name" />
+              <img :src="getOSSImageUrl(character.avatar, AssetsSize.MEDIUM)" :alt="character.name" />
             </div>
             <div class="lo-character-card__details-container">
               <p class="lo-character-card-details__name">{{ character.name }}</p>
@@ -164,9 +164,9 @@ function submitComment() {
       </template>
     </Section>
 
-    <Section :title="'评论 ' + comments.length">
+    <Section :title="'评论 ' + creationComments.length">
       <template #default>
-        <Comments :data="comments" />
+        <Comments :data="creationComments" />
       </template>
     </Section>
 

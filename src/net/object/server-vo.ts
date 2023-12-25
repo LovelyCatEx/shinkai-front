@@ -2,6 +2,14 @@ export interface User {
 
 }
 
+export function getOSSImageUrl(originUrl: string, size: AssetsSize) {
+    if (originUrl == undefined || originUrl == "") return ""
+    const extPointIndex = originUrl.lastIndexOf('.')
+    const fileFullPath = originUrl.substring(0, extPointIndex)
+    const ext = originUrl.substring(extPointIndex, originUrl.length)
+    return fileFullPath + size + ext
+}
+
 export class Creation {
     public id: number = 0
     public name: string = ""
@@ -13,12 +21,7 @@ export class Creation {
     public featureVertical: string = ""
 
     public static getFeatureUrl(creation: Creation, size: AssetsSize) {
-        const feature = creation.feature
-        if (feature == undefined || feature == "") return ""
-        const extPointIndex = feature.lastIndexOf('.')
-        const fileFullPath = feature.substring(0, extPointIndex)
-        const ext = feature.substring(extPointIndex, feature.length)
-        return fileFullPath + size + ext
+        return getOSSImageUrl(creation.feature, size)
     }
 }
 
