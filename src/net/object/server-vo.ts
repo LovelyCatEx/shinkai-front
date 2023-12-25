@@ -50,7 +50,7 @@ export interface CreationSection {
 }
 
 export interface Comment {
-    id: number,
+    id: number | null,
     cid: number,
     nickname: string,
     email: string,
