@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import {getCurrentInstance, Ref, ref, watchEffect} from "vue";
+import {getCurrentInstance, ref, watchEffect} from "vue";
+import type {Ref} from 'vue';
 import {CreationService} from "@/net/service/creation-service";
 import type {Result} from "@/net/result";
-import {AssetsSize, Comment, Creation, CreationCharacter, CreationSection} from "@/net/object/server-vo";
+import {AssetsSize, Comment, Creation} from "@/net/object/server-vo";
+import type {CreationCharacter, CreationSection} from "@/net/object/server-vo"
 import SiteFooter from "@/components/SiteFooter.vue";
 import {setTitle} from "@/js/universal-utils";
 import {storeToRefs} from "pinia";
@@ -24,6 +26,14 @@ const comments: Ref<Array<Comment>> = ref([])
 
 const { isShowingIndicatorAndActiveItem } = storeToRefs(store.navHeaderStore)
 isShowingIndicatorAndActiveItem.value = false
+
+function refreshComments() {
+  commentService.getCreationComments(creationId, {
+    onSuccess(message: string, data: Result<Array<Comment>>): void {
+      comments.value = data.data
+    }
+  })
+}
 
 function refreshData() {
   // Base
@@ -49,12 +59,7 @@ function refreshData() {
     }
   })
 
-  // Comments
-  commentService.getCreationComments(creationId, {
-    onSuccess(message: string, data: Result<Array<Comment>>): void {
-      comments.value = data.data
-    }
-  })
+  refreshComments()
 }
 
 refreshData()
@@ -69,7 +74,7 @@ watchEffect(() => {
 
 // Comment
 const inputComment: Ref<Comment> = ref({
-  id: 0,
+  id: null,
   cid: parseInt(creationId),
   nickname: "LovelyCat",
   email: "no-reply@lovelycatv.com",
@@ -92,7 +97,7 @@ function submitComment() {
   inputComment.value.rates = 48
   commentService.postNewComment(inputComment.value, {
     onSuccess(message: string, data: Result<any>): void {
-      console.error(message)
+      refreshComments()
     }
   })
 }

@@ -14,6 +14,6 @@ export class CommentService extends BaseService {
 
     public postNewComment(comment: Comment, callback: RequestCallback<Result<any>>) {
         console.log(JSON.stringify(comment))
-        this.doGet("/new", {}, {...comment}, callback)
+        this.doPost("/post", {}, {...comment}, callback)
     }
 }
