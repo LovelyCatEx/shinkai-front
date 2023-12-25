@@ -31,4 +31,33 @@ node {
         }
     }
 
+    stage('Package & Publish') {
+        echo "准备压缩 /dist 文件夹"
+        sh 'tar -cvf result.tar dist/*'
+
+        echo "准备推送至应用服务器"
+        sshPublisher(publishers: [
+                sshPublisherDesc(
+                        configName: 'aliyun_2',
+                        transfers: [
+                                sshTransfer(
+                                        cleanRemote: false,
+                                        excludes: '',
+                                        execCommand: 'cd jenkins_result/shinkai/front/ && sh startup.sh',
+                                        execTimeout: 120000,
+                                        flatten: false,
+                                        makeEmptyDirs: false,
+                                        noDefaultExcludes: false,
+                                        patternSeparator: '[, ]+',
+                                        remoteDirectory: 'jenkins_result/shinkai/front',
+                                        remoteDirectorySDF: false,
+                                        removePrefix: '',
+                                        sourceFiles: 'result.tar')
+                        ],
+                        usePromotionTimestamp: false,
+                        useWorkspaceInPromotion: false,
+                        verbose: true
+                )])
+    }
+
 }
