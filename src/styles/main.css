@@ -15,23 +15,23 @@
   --transition-duration-slow: .5s;
   --transition-duration-default: .25s;
 
-  --margin-giant: 24px;
-  --margin-large: 20px;
-  --margin-normal: 16px;
-  --margin-lite: 12px;
-  --margin-tiny: 8px;
+  --margin-giant: 1.5rem;
+  --margin-large: 1.25rem;
+  --margin-normal: 1rem;
+  --margin-lite: .75rem;
+  --margin-tiny: .5rem;
 
-  --padding-giant: 32px;
-  --padding-large: 24px;
-  --padding-normal: 16px;
-  --padding-lite: 12px;
-  --padding-tiny: 8px;
+  --padding-giant: 2rem;
+  --padding-large: 1.5rem;
+  --padding-normal: 1rem;
+  --padding-lite: .75rem;
+  --padding-tiny: .5rem;
 
-  --radius-giant: 16px;
-  --radius-large: 12px;
-  --radius-normal: 8px;
-  --radius-lite: 6px;
-  --radius-tiny: 4px;
+  --radius-giant: 1rem;
+  --radius-large: .75rem;
+  --radius-normal: .5rem;
+  --radius-lite: .375rem;
+  --radius-tiny: .25rem;
 }
 
 html, body {
@@ -42,13 +42,19 @@ html, body {
   transition-duration: var(--transition-duration-default);
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 420px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 420px) and (max-width: 768px) {
   html {
     font-size: 12px;
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 1024px) {
   html {
     font-size: 14px;
   }

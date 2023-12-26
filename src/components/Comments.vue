@@ -36,15 +36,42 @@ const props = defineProps<{
         </div>
       </div>
     </div>
+
+    <div class="lo-comment-container--mobile" v-for="(comment, index) in props.data">
+      <div class="lo-comment-container__left--to-top">
+        <div class="comment-avatar">
+          <img src="@/assets/akarin.webp" :alt="comment.nickname" />
+        </div>
+        <div class="flex-vertical" style="justify-content: center">
+          <p class="lo-comment-content__element--name" style="margin-left: var(--margin-lite)">{{ comment.nickname }}</p>
+          <div class="lo-comment-content__element--rates" style="margin-top: var(--margin-tiny)">
+            <svg viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" v-for="(item, index) in Math.round(comment.rates / 10)">
+              <path d="M784.16441 645.6c-3.8 3.7-5.5 9-4.6 14.2L835.36441 985c1.8 10.3-6.4 18.7-15.8 18.7-2.5 0-5-0.6-7.5-1.9L520.16441 848.3c-2.3-1.2-4.9-1.8-7.5-1.8s-5.1 0.6-7.5 1.8l-292.1 153.5c-2.5 1.3-5 1.9-7.5 1.9-9.3 0-17.5-8.4-15.8-18.7L245.66441 659.8c0.9-5.2-0.8-10.5-4.6-14.2L4.86441 415.3C-4.63559 406 0.56441 389.9 13.66441 388l326.5-47.5c5.2-0.8 9.7-4 12-8.8l146-295.9c2.9-5.9 8.6-8.9 14.3-8.9s11.4 3 14.3 8.9l146 295.9c2.3 4.7 6.8 8 12 8.8L1011.66441 388c13.1 1.9 18.4 18 8.9 27.3L784.16441 645.6z" p-id="8820" fill="#f2cb51"></path>
+            </svg>
+            {{ comment.rates / 10 }}
+          </div>
+        </div>
+      </div>
+
+      <div class="lo-comment-container__right--to-top">
+        <div class="lo-comment-content">
+          <div class="lo-comment-content__element--content">{{ comment.content }}</div>
+          <div class="lo-comment-content__element--published-time" style="margin-top: var(--margin-lite)">{{ comment.publishedTime }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
+<!--Mobile-->
+
+<!--Laptop-->
 <style scoped lang="scss">
 .comment-avatar {
   $avatar-width: 6rem;
   width: $avatar-width;
   height: $avatar-width;
-  border-radius: calc($avatar-width / 2);
+  border-radius: 50%;
   overflow: hidden;
 
   img {
@@ -66,14 +93,22 @@ const props = defineProps<{
   }
 }
 
-@include b("comment-container") {
+@mixin uni-comment-container($isMobile: 0) {
   width: 100%;
   display: flex;
   background-color: var(--secondary-light-color);
-  padding: var(--padding-giant);
+  @if ($isMobile == 0) {
+    padding: var(--padding-giant);
+  } @else {
+    padding: var(--padding-normal);
+  }
   border-radius: var(--radius-normal);
   box-shadow: 0 0 16px rgba(0,0,0,.1);
   margin-bottom: var(--margin-giant);
+}
+
+@include b("comment-container") {
+  @include uni-comment-container(0);
 
   &:hover {
     box-shadow: 0 0 16px rgba(0,0,0,.18);
@@ -81,11 +116,34 @@ const props = defineProps<{
 
   @include e("left") {
     flex-shrink: 0;
+
+    @include m("to-top") {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+
+      .comment-avatar {
+        width: 4.5rem;
+        height: 4.5rem;
+      }
+    }
   }
 
   @include e("right") {
     flex-grow: 1;
     margin: 0 var(--margin-giant);
+
+    @include m("to-top") {
+      flex-grow: 1;
+      margin-top: var(--margin-lite);
+    }
+  }
+
+
+  @include m("mobile") {
+    @include uni-comment-container(1);
+
+    flex-direction: column;
   }
 }
 
@@ -114,11 +172,33 @@ const props = defineProps<{
     }
 
     @include m("content") {
-      font-size: 1.25rem;
+      $font-size: 1.25rem;
+      font-size: $font-size;
+      line-height: calc($font-size * 1.5);
     }
 
   }
 }
 
 
+</style>
+
+<style scoped lang="scss">
+@media screen and (max-width: 768px) {
+  @include b("comment-container") {
+    display: none;
+    @include m("mobile") {
+      display: flex;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  @include b("comment-container") {
+    display: flex;
+    @include m("mobile") {
+      display: none;
+    }
+  }
+}
 </style>

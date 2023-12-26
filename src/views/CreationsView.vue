@@ -236,7 +236,7 @@ setTitle("影视作品")
   }
 
   @include e("btn") {
-    $width: 48px;
+    $width: 3rem;
     width: $width;
     height: $width;
     cursor: pointer;

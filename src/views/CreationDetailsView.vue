@@ -358,6 +358,8 @@ $media-scale-arr: 0.6, 0.7, 0.8, 0.9, 1.2;
 
 </style>
 
+
+
 <style scoped lang="scss">
 @include b("character-container") {
   max-width: 1400px;
@@ -382,7 +384,7 @@ $media-scale-arr: 0.6, 0.7, 0.8, 0.9, 1.2;
   @include e("feature") {
     width: 8rem;
     height: 8rem;
-    border-radius: 4rem;
+    border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
     box-shadow:  0 0 8px rgba(0,0,0,.15);
@@ -464,7 +466,7 @@ $media-scale-arr: 0.6, 0.7, 0.8, 0.9, 1.2;
     margin: 0 calc(var(--margin-giant) * 1.5);
 
     p {
-      margin: var(--margin-normal) 0;
+      margin: var(--margin-lite) 0;
     }
   }
 }
@@ -498,9 +500,72 @@ $media-scale-arr: 0.6, 0.7, 0.8, 0.9, 1.2;
 </style>
 
 <style scoped lang="scss">
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 420px) {
+  // Details
   @include b("details-banner") {
     grid-template-columns: 1fr;
+    padding: 0 var(--padding-giant);
+
+    @include e("feature") {
+      width: calc(24rem * 0.6);
+      height: calc(32rem * 0.6);
+    }
+  }
+
+  @include b("character-container") {
+    grid-template-columns: 1fr;
+  }
+
+  // Character card
+  @include b("character-card") {
+    padding: var(--padding-lite) var(--padding-normal);
+
+    @include e("feature") {
+      width: 6rem;
+      height: 6rem;
+    }
+
+    @include e("details-container") {
+      padding: var(--padding-tiny) 0 var(--padding-tiny) var(--padding-normal);
+    }
+
+  }
+}
+
+@media screen and (min-width: 420px) and (max-width: 768px) {
+  // Details
+  @include b("details-banner") {
+    grid-template-columns: 1fr;
+    padding: 0 var(--padding-giant);
+
+    @include e("feature") {
+      width: calc(24rem * 0.8);
+      height: calc(32rem * 0.8);
+    }
+  }
+
+  @include b("character-container") {
+    grid-template-columns: 1fr;
+  }
+
+  // Character card
+  @include b("character-card") {
+    @include e("feature") {
+      width: 7rem;
+      height: 7rem;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  @include b("details-banner") {
+    grid-template-columns: 1fr;
+    padding: 0 var(--padding-giant);
+
+    @include e("feature") {
+      width: 24rem;
+      height: 32rem;
+    }
   }
 
   @include b("character-container") {

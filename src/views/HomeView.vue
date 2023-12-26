@@ -121,7 +121,7 @@ $base64-btn-details-animation: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG
 }
 
 $banner-font-size-title: 4.5rem;
-$banner-font-size-in-divider-title: 3.8rem;
+$banner-font-size-in-divider-title: 3.5rem;
 $banner-font-size-subtitle: 1.8rem;
 $banner-font-size-normal: 1.2rem;
 
@@ -201,8 +201,8 @@ $banner-font-size-normal: 1.2rem;
   }
 
   @include e("icon") {
-    width: 154px;
-    height: 154px;
+    width: 10rem;
+    height: 10rem;
   }
 
   @include e("btn-details") {
