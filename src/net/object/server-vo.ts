@@ -62,3 +62,9 @@ export interface Comment {
     publishedTime: string,
     published: boolean
 }
+
+export interface GalleryImage {
+    id: number,
+    feature: string,
+    title: string
+}
