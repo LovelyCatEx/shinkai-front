@@ -153,7 +153,7 @@ const isDrawerShowing = ref(false)
 @include b("uni-header-menu-drawer") {
 
   @include e("closer") {
-    $height: 64px;
+    $height: 4rem;
     width: 100%;
     height: $height;
     background: #393b40;
@@ -163,8 +163,8 @@ const isDrawerShowing = ref(false)
 
     svg {
       margin-right: var(--margin-normal);
-      width: calc($height / 2);
-      height: calc($height / 2);
+      width: calc($height / 2.5);
+      height: calc($height / 2.5);
       cursor: pointer;
     }
   }
@@ -176,8 +176,8 @@ const isDrawerShowing = ref(false)
 
   @include e("item") {
     display: block;
-    font-size: 2rem;
-    padding: var(--padding-giant) calc(var(--padding-giant) * 1.25);
+    font-size: 1.5rem;
+    padding: var(--padding-large) var(--padding-giant);
     cursor: pointer;
     background: white;
     color: #393b40;
@@ -188,7 +188,7 @@ const isDrawerShowing = ref(false)
 
 <style scoped lang="scss">
 @include b("uni-header-menu-mobile") {
-  $drawer-btn-width: 2rem;
+  $drawer-btn-width: 1.5rem;
   width: calc($drawer-btn-width * 1.25);
   height: calc($drawer-btn-width * 1.25);
   display: none;
@@ -227,7 +227,7 @@ const isDrawerShowing = ref(false)
   text-shadow: 0 0 10px #69e0ff, 0 0 20px #69e0ff, 0 0 40px #69e0ff;
 }
 
-$nav-height: 64px;
+$nav-height: 4rem;
 $btn-back-width: 32px;
 
 @include b("uni-header-wrapper") {
@@ -264,7 +264,7 @@ $btn-back-width: 32px;
     height: $nav-height;
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 1rem;
 
     @include m("item"){
       width: $nav-item-width;
