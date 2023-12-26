@@ -5,6 +5,7 @@ import store from "@/store";
 import {storeToRefs} from "pinia";
 import {ref} from "vue";
 import {setTitle} from "@/js/universal-utils";
+import router from "@/router";
 
 const {isBackground, isBackgroundBlur} = storeToRefs(store.navHeaderStore)
 
@@ -27,6 +28,11 @@ const scrollEvent = (newIndex) => {
 
 // Title
 setTitle("")
+
+// Suzume Details
+const jump2CreationSuzume = () => {
+  window.open("creation/8")
+}
 </script>
 
 <template>
@@ -59,7 +65,7 @@ setTitle("")
             <p class="lo-banner-main__description">
               要石，是封印土地主人、防范灾难发生的角色，其位置会随着时代与日本土地的变迁而改变，可透过交接的方式转移给被选定者。若是“要石”被拔出来，将会导致封印被解开。
             </p>
-            <button class="lo-banner-main__btn-details">
+            <button class="lo-banner-main__btn-details" @click="jump2CreationSuzume">
               <p>查看详情</p>
             </button>
           </div>
@@ -74,7 +80,7 @@ setTitle("")
             <p class="lo-banner-main__description">
               往门，是连结往生者世界“常世”与人类所处的“现世”的门扉，平常依赖人们心中的重量和思绪镇定土地和门。若是人心的重量消失，等于从人们的记忆中消失或思绪减少，将会导致后门被打开。一个人一生中最多只能通过一道后门。
             </p>
-            <button class="lo-banner-main__btn-details">
+            <button class="lo-banner-main__btn-details" @click="jump2CreationSuzume">
               <p>查看详情</p>
             </button>
           </div>
@@ -89,7 +95,7 @@ setTitle("")
             <p class="lo-banner-main__description">
               古代日本人认为日本群岛地下有长长的、巨大的生物运动，引发了地震。到300年前的江户时代，人们都认为那是一条鲶鱼。
             </p>
-            <button class="lo-banner-main__btn-details">
+            <button class="lo-banner-main__btn-details" @click="jump2CreationSuzume">
               <p>查看详情</p>
             </button>
           </div>
