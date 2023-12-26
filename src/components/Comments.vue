@@ -144,6 +144,7 @@ const props = defineProps<{
     @include uni-comment-container(1);
 
     flex-direction: column;
+    display: none;
   }
 }
 
