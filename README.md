@@ -1,40 +1,11 @@
-# shinkai-front
+# Shinkai Front
 
-This template should help get you started developing with Vue 3 in Vite.
+这是一个Web大作业，主要使用Vue3、TypeScript、Scss 以及 Pinia、Vue-Router、Axios进行制作，由 Vite 构建项目，后端部分请转至：[https://github.com/LovelyCatEx/shinkai-front](https://github.com/LovelyCatEx/shinkai-front)
 
-## Recommended IDE Setup
+该站主要展示新海诚所有的影视作品，并且提供最基本的匿名评论功能，在多端上也做了简单的响应式适配。
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+同时本项目还提供了前后端的Jenkins流水线脚本以及Dockerfile，如需使用请根据实际情况将一些参数进行替换。
 
-## Type Support for `.vue` Imports in TS
+# License
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+本项目采用 **Apache License Version 2.0** 协议开源。
